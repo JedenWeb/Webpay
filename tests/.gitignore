@@ -1,0 +1,3 @@
+converage.*
+*.actual
+*.expected
