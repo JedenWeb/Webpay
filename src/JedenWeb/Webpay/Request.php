@@ -174,9 +174,9 @@ class Request
     private function sign()
     {
         $this->validateRequiredFields();
+        $params = $this->filterOptionalFields($this->params);
 
-        $digestText = implode('|', $this->params);
-        openssl_sign($digestText, $signature, $this->privateKey);
+        openssl_sign(implode('|', $params), $signature, $this->privateKey);
 
         $this->params['DIGEST'] = base64_encode($signature);
     }
@@ -224,6 +224,29 @@ class Request
         if (($key = array_search(NULL, array_intersect_key($this->params, $required), TRUE)) !== FALSE) {
             throw new InvalidStateException("Parameter $key is required but not set.");
         }
+    }
+
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    private function filterOptionalFields(array $params)
+    {
+        $optional = array(
+            'MERORDERNUM',
+            'DESCRIPTION',
+            'MD',
+        );
+
+        foreach ($optional as $key) {
+            if ($params[$key] === NULL) {
+                unset($params[$key]);
+            }
+        }
+
+        return $params;
     }
 
 }
