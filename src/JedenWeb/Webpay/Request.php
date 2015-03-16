@@ -129,26 +129,26 @@ class Request
 
 
     /**
-     * @param string $description
+     * @param string|NULL $description
      *
      * @return $this
      */
     public function setDescription($description)
     {
-        $this->params['DESCRIPTION'] = substr($description, 0, 255);
+        $this->params['DESCRIPTION'] = $description == NULL ? NULL : substr($description, 0, 255); // intentionally ==
 
         return $this;
     }
 
 
     /**
-     * @param string $md
+     * @param string|NULL $md
      *
      * @return $this
      */
     public function setMerchantData($md)
     {
-        $this->params['MD'] = substr($md, 0, 255);
+        $this->params['MD'] = $md == NULL ? NULL : substr($md, 0, 255); // intentionally ==
 
         return $this;
     }
