@@ -77,6 +77,10 @@ class Response
      */
     public function authenticate($merchantNumber = NULL)
     {
+        if ($this->authentic !== NULL) {
+            return $this->authentic;
+        }
+
         $params = $this->filterOptionalFields($this->params);
         $digest = $params['DIGEST'];
         $digest1 = $params['DIGEST1'];
