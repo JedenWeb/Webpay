@@ -77,7 +77,7 @@ class Response
      */
     public function authenticate($merchantNumber = NULL)
     {
-        $params = $this->params;
+        $params = $this->filterOptionalFields($this->params);
         $digest = $params['DIGEST'];
         $digest1 = $params['DIGEST1'];
 
@@ -93,6 +93,29 @@ class Response
         }
 
         return $this->authentic = $authentic === 1;
+    }
+
+
+    /**
+     * @param array $params
+     *
+     * @return array
+     */
+    private function filterOptionalFields(array $params)
+    {
+        $optional = array(
+            'MERORDERNUM',
+            'MD',
+            'RESULTTEXT',
+        );
+
+        foreach ($optional as $key) {
+            if ($params[$key] === NULL) {
+                unset($params[$key]);
+            }
+        }
+
+        return $params;
     }
 
 

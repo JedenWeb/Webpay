@@ -46,3 +46,11 @@ $response->setParams($params);
 
 \Tester\Assert::true($response->authenticate());
 \Tester\Assert::true($response->authenticate('0123456789'));
+
+// missing optional MD parameter
+$params = unserialize(file_get_contents(__DIR__ . '/Response.optional.data'));
+
+$response = new Webpay\Response(__DIR__ . '/../crt/test_cert.pem');
+$response->setParams($params);
+
+\Tester\Assert::true($response->authenticate());
