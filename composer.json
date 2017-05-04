@@ -16,11 +16,8 @@
       "nette/tester": "~1.3"
     },
     "autoload": {
-        "psr-0": {
-            "JedenWeb\\": "src/"
-        },
-        "classmap": [
-            "src/JedenWeb/Webpay/exceptions.php"
-        ]
+        "psr-4": {
+            "JedenWeb\\Webpay\\": "src/"
+        }
     }
 }

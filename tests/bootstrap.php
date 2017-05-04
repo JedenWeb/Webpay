@@ -5,7 +5,6 @@ if (!$loader = @include __DIR__ . '/../vendor/autoload.php') {
     exit(1);
 }
 
-$loader->add('JedenWeb', __DIR__ . '/../src');
 // configure environment
 Tester\Environment::setup();
 class_alias('Tester\Assert', 'Assert');
@@ -27,4 +26,26 @@ function id($val) {
 
 function run(Tester\TestCase $testCase) {
     $testCase->run(isset($_SERVER['argv'][1]) ? $_SERVER['argv'][1] : NULL);
+}
+
+/** @return Nette\DI\Container */
+function createContainer($source, $config = NULL, $params = [])
+{
+	$class = 'Container' . md5((string) lcg_value());
+	if ($source instanceof Nette\DI\ContainerBuilder) {
+		$code = implode('', (new Nette\DI\PhpGenerator($source))->generate($class));
+	} elseif ($source instanceof Nette\DI\Compiler) {
+		if (is_string($config)) {
+			$loader = new Nette\DI\Config\Loader;
+			$config = $loader->load(is_file($config) ? $config : Tester\FileMock::create($config, 'neon'));
+		}
+		$code = $source->addConfig((array) $config)
+					   ->setClassName($class)
+					   ->compile();
+	} else {
+		return;
+	}
+	file_put_contents(TEMP_DIR . '/code.php', "<?php\n\n$code");
+	require TEMP_DIR . '/code.php';
+	return new $class($params);
 }

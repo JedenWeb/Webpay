@@ -25,7 +25,7 @@ class Response
         fclose ($fp);
 
         if (!($this->publicKey = openssl_get_publickey($key))) {
-            throw new InvalidArgumentException("'$file' is not valid PEM public key (or passphrase is incorrect).");
+            throw new InvalidArgumentException("'$file' is not valid PEM public key.");
         }
     }
 
