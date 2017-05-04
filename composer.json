@@ -2,7 +2,7 @@
     "name": "jedenweb/webpay",
     "description": "Wrapper for GP Webpay request and response",
     "keywords": ["webpay"],
-    "licence": ["MIT"],
+    "license": ["MIT"],
     "homepage": "https://github.com/jedenweb/webpay",
     "authors": [
         {
