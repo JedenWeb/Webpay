@@ -11,7 +11,8 @@
     ],
     "require": {
         "ext-openssl": "*",
-        "nette/di": "^2.4"
+        "nette/di": "^2.4",
+        "nette/http": "^2.4"
     },
     "require-dev": {
         "nette/tester": "~1.3"

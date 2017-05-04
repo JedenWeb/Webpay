@@ -4,6 +4,7 @@ namespace JedenWeb\Webpay\DI;
 
 use JedenWeb\Webpay\InvalidArgumentException;
 use JedenWeb\Webpay\IRequestBuilderFactory;
+use JedenWeb\Webpay\ResponseFactory;
 use Nette\DI\CompilerExtension;
 use Nette\DI\Config\Helpers;
 use Nette\Utils\Validators;
@@ -42,6 +43,11 @@ class WebpayExtension extends CompilerExtension
 			->setArguments(array(
 				$config['privateKey'], $config['password'],
 				$config['webpayUrl'], $config['merchantId'],
+			));
+
+		$container->addDefinition($this->prefix('responseFactory'))
+			->setClass(ResponseFactory::class, array(
+				$config['publicKey'],
 			));
 	}
 

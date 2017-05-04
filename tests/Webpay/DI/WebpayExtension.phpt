@@ -38,6 +38,8 @@ Assert::exception(function () use ($compiler) {
 	$compiler->compile();
 }, \Nette\Utils\AssertionException::class, "Missing item 'publicKey' in array.");
 
+$compiler->addExtension('http', new \Nette\Bridges\HttpDI\HttpExtension);
+
 $compiler->addConfig(array(
 	'webpay' => array(
 		'privateKey' => __DIR__ . '/../../crt/client.pem',
